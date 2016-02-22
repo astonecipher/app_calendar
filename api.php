@@ -60,8 +60,13 @@ function setAppointment($name, $phone, $appTime){
     $dateParts = explode('-', $parts[0] );
     $time = explode("_", $parts[1]);
     $date = date('l, F d, Y g:i a', mktime( $time[0], $time[1],0,$dateParts[1],$dateParts[2], $dateParts[0]));
+    $out = '';
+    if ( date('Y-m-d H:i:s',mktime( $time[0], $time[1],0,$dateParts[1],$dateParts[2], $dateParts[0])) < date("Y-m-d H:i:s")){
+        $out = "Cannot schedule appointment for a period that has already passed.";
+    }
     
     $str = "Received an appointment for $date , for<br>$name : $phone<br>";
+    $str .= $out;
     $str .= "Functionality still being worked on.";
     return $str;
 }
