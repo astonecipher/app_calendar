@@ -1,0 +1,65 @@
+<!-- Modal -->
+<div id="setApp" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" id='schedule'>
+				<form>
+					<div id='app_form'></div>
+					<div class='form-group'>
+						<label for='appTime'>Appointment Time:</label> <input type='text'
+							id='appTime' class='form-control'>
+					</div>
+					<div class='form-group'>
+						<label for='phone'>Phone Number:</label> <input type='phone'
+							id='phone' class='form-control'>
+					</div>
+					<div class='form-group'>
+						<label for='fullname'>Name:</label> <input type='text'
+							id='fullName' class='form-control'>
+					</div>
+					<button type="button" id='btAddApp' class="btn btn-success">Save</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+
+				</form>
+			</div>
+			<div class="modal-footer"></div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	$(function() {
+		if ($("#setApp").hasClass('in')) {
+			$("#phone").focus();
+			alert('Testing');
+		}
+	});
+
+	$("input[type='phone']").keyup(function(event) {
+		var len = $("#phone").val().length;
+		var str = $("#phone").val();
+		if (len == 3 || len == 7) {
+			$("#phone").val(str + '-');
+		}
+
+	});
+	
+	$("#btAddApp").click( function(){
+		$("#app_form").html();
+		var setName = $('#fullName').val();
+		var setPhone = $("#phone").val();
+		
+		$.post('api.php?pid=setAppoitnment', { name: setName, phone: setPhone}, function(data){
+			$("#app_form").html("<div class='alert alert-danger'>" + data + "</div>");
+		});
+	});
+	
+</script>
