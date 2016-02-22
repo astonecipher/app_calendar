@@ -54,10 +54,11 @@
 	
 	$("#btAddApp").click( function(){
 		$("#app_form").html();
-		var setName = $('#fullName').val();
+		var setTime  = $("#appTime").val();
+		var setName  = $('#fullName').val();
 		var setPhone = $("#phone").val();
 		
-		$.post('api.php?pid=setAppoitnment', { name: setName, phone: setPhone}, function(data){
+		$.post('api.php?pid=setAppoitnment', { name: setName, phone: setPhone, appTime: setTime}, function(data){
 			$("#app_form").html("<div class='alert alert-danger'>" + data + "</div>");
 		});
 	});
